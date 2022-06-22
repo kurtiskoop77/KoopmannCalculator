@@ -8,6 +8,8 @@ public:
 public:
 	wxTextCtrl* txt;
 	wxButton* button1;
+	wxString num1;
+	char operand = NULL;
 public:
 	wxDECLARE_EVENT_TABLE();
 	void OnButtonClick(wxCommandEvent(&evt));

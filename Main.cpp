@@ -1,5 +1,6 @@
 #include "Main.h"
 #include "ButtonFactory.h"
+#include "CalculatorProcessor.h"
 wxBEGIN_EVENT_TABLE(Main, wxFrame)
 EVT_BUTTON(wxID_ANY, Main::OnButtonClick)
 
@@ -35,90 +36,142 @@ Main::~Main() {
 
 }
 void Main::OnButtonClick(wxCommandEvent(&evt)) {
+	CalculatorProcessor* processor = CalculatorProcessor::GetInstance();
 	int id = evt.GetId();
 	switch (id) {
 	case 0: {
 		txt->AppendText("0");
+			num1.append("0");
 		break;
 	}
 	case 1: {
 		txt->AppendText("1");
+			num1.append("1");
 		break;
 	}
 	case 2: {
 		txt->AppendText("2");
+		num1.append("2");
 		break;
 	}
 	case 3: {
 		txt->AppendText("3");
+			num1.append("3");
 		break;
 	}
 	case 4: {
 		txt->AppendText("4");
+			num1.append("4");
 		break;
 	}
 	case 5: {
 		txt->AppendText("5");
+			num1.append("5");
 		break;
 	}
 	case 6: {
 		txt->AppendText("6");
-		break;
+			num1.append("6");
+			break;
 	}
 	case 7: {
 		txt->AppendText("7");
+			num1.append("7");
 		break;
 	}
 	case 8: {
 		txt->AppendText("8");
+			num1.append("8");
 		break;
 	}
 	case 9: {
 		txt->AppendText("9");
+			num1.append("9");
 		break;
 	}
 	case 10: {
-		txt->AppendText("=");
+		if (operand == '+') {
+			processor->Add(wxAtoi(num1));
+		}
+		else if (operand == '-') {
+			processor->Subtract(wxAtoi(num1));
+		}
+		else if (operand == '*') {
+			processor->Multiply(wxAtoi(num1));
+		}
+		else if (operand == '/') {
+			processor->Divide(wxAtoi(num1));
+		}
+		else if(operand == '%'){
+			processor->Modulus(wxAtoi(num1));
+		}
+		operand = NULL;
+		num1 = (wxString) processor->GetDecimal();
+		txt->Clear();
+		txt->AppendText(processor->GetDecimal());
 		break;
 	}
 	case 11: {
 		txt->Clear();
+		processor->SetBaseNum(0);
+		num1 = "";
+		operand = NULL;
 		break;
 	}
 	case 12: {
-		txt->AppendText("MOD");
+		processor->SetBaseNum(wxAtoi(num1));
+		num1 = "";
+		operand = '%';
 		break;
 	}
 	case 13: {
-		txt->AppendText("-");
+		//negative (+/-) ???
 		break;
 	}
 	case 14: {
 		txt->AppendText("+");
+		processor->SetBaseNum(wxAtoi(num1));
+		num1 = "";
+		operand = '+';
 		break;
 	}
 	case 15: {
 		txt->AppendText("-");
+		processor->SetBaseNum(wxAtoi(num1));
+		num1 = "";
+		operand = '-';
 		break;
 	}
 	case 16: {
 		txt->AppendText("*");
+		processor->SetBaseNum(wxAtoi(num1));
+		num1 = "";
+		operand = '*';
 		break;
 	}
 	case 17: {
 		txt->AppendText("/");
+		processor->SetBaseNum(wxAtoi(num1));
+		num1 = "";
+		operand = '/';
 		break;
 	}
 	case 18: {
-		txt->AppendText("DEC");
+		processor->SetBaseNum(wxAtoi(num1));
+		txt->Clear();
+		txt->AppendText(processor->GetDecimal());
 		break;
 	}
 	case 19: {
-		txt->AppendText("BIN");
+		processor->SetBaseNum(wxAtoi(num1));
+		txt->Clear();
+		txt->AppendText(processor->GetBinary());
 		break;
 	}
 	case 20: {
-		txt->AppendText("HEX");
+		processor->SetBaseNum(wxAtoi(num1));
+		txt->Clear();
+		txt->AppendText(processor->GetHexadecimal());
 		break; 
 	}
 	}
