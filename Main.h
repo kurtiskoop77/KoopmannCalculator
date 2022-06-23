@@ -13,6 +13,6 @@ public:
 public:
 	wxDECLARE_EVENT_TABLE();
 	void OnButtonClick(wxCommandEvent(&evt));
-
+	int GetNum();
 };
 

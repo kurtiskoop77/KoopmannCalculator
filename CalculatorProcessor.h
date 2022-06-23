@@ -1,10 +1,14 @@
 #pragma once
 #include <string>
+#include "IBaseCommand.h"
+#include "Main.h"
+#include <vector>
 class CalculatorProcessor
 {
 private:
 	static CalculatorProcessor* _processor;
 	int num1;
+	std::vector <IBaseCommand*> temp;
 	CalculatorProcessor() {}
 
 public:
@@ -17,6 +21,9 @@ public:
 
 	void SetBaseNum(int num) {
 		num1 = num;
+	}
+	int GetBaseNum() {
+		return num1;
 	}
 
 	CalculatorProcessor(CalculatorProcessor& other) = delete;
@@ -82,19 +89,29 @@ public:
 	}
 
 	void Multiply(int num) {
-		num1 *= num;
+		MultCommand* mult = new MultCommand(num1, num);
+		temp.push_back(mult);
+		num1 = mult->Execute();
 	}
 	void Divide(int num) {
-		num1 /= num;
+		DivCommand* div = new DivCommand(num1, num);
+		temp.push_back(div);
+		num1 = div->Execute();
 	}
 	void Modulus(int num) {
-		num1 %= num;
+		ModCommand* mod = new ModCommand(num1, num);
+		temp.push_back(mod);
+		num1 = mod->Execute();
 	}
 	void Add(int num) {
-		num1 += num;
+		AddCommand* add = new AddCommand(num1, num);
+		temp.push_back(add);
+		num1 = add->Execute();
 	}
 	void Subtract(int num) {
-		num1 -= num;
+		SubCommand* sub = new SubCommand(num1, num);
+		temp.push_back(sub);
+		num1 = sub->Execute();
 	}
 };
 

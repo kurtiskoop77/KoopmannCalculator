@@ -1,10 +1,11 @@
 #include "Main.h"
 #include "ButtonFactory.h"
 #include "CalculatorProcessor.h"
+#include "IBaseCommand.h"
 wxBEGIN_EVENT_TABLE(Main, wxFrame)
 EVT_BUTTON(wxID_ANY, Main::OnButtonClick)
-
 wxEND_EVENT_TABLE()
+
 Main::Main() : wxFrame(nullptr, wxID_ANY, "CALCULATORTRON 4000", wxPoint(400, 100), wxSize(400, 600)) {
 	ButtonFactory* butFac = new ButtonFactory();
 	button1 = butFac->Make(this, 1, "1", 30, 100, 100, 100);
@@ -139,6 +140,7 @@ void Main::OnButtonClick(wxCommandEvent(&evt)) {
 		txt->AppendText("-");
 		processor->SetBaseNum(wxAtoi(num1));
 		num1 = "";
+
 		operand = '-';
 		break;
 	}
