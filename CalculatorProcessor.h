@@ -33,8 +33,8 @@ public:
 		return std::to_string(num1);
 	}
 
-	std::string GetHexadecimal() {
-		std::string Hex = "";
+	wxString GetHexadecimal() {
+		wxString Hex = "";
 		int temp = num1;
 		while (temp > 0) {
 			int mod = temp % 16;
@@ -68,8 +68,8 @@ public:
 		return Hex;
 	}
 
-	std::string GetBinary() {
-		std::string results = " ";
+	wxString GetBinary() {
+		wxString results = " ";
 		int temp = num1;
 		for (int i = 0; i < 32; i++)
 		{
